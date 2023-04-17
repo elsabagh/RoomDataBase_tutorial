@@ -6,9 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.room.Room
-import com.example.roomdatabase_tutorial.data.Note
-import com.example.roomdatabase_tutorial.data.database.NoteDatabase
 import com.example.roomdatabase_tutorial.databinding.FragmentNotesBinding
 
 class NotesFragment : Fragment() {
@@ -28,7 +25,6 @@ class NotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
     }
 
