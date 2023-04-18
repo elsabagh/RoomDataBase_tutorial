@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.roomdatabase_tutorial.data.Note
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 @Dao
@@ -22,5 +23,5 @@ interface NoteDao {
     fun update(note: Note): Completable
 
     @Query("SELECT * FROM NOTE_TABLE")
-    fun getAllNotes(): Single<List<Note>>
+    fun getAllNotes(): Observable<List<Note>>
 }

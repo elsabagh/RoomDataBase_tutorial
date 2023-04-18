@@ -10,4 +10,6 @@ class NoteRepository {
     fun insertNewNote(note: Note): Completable{
         return dao.insertNote(note)
     }
+
+    fun getAllNotes() = dao.getAllNotes()
 }
