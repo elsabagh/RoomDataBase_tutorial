@@ -13,14 +13,14 @@ import io.reactivex.rxjava3.core.Completable
 interface NoteDao {
 
     @Insert
-    fun insertNote(note: Note): Completable
+    suspend fun insertNote(note: Note)
 
     @Delete
-    fun delete(note: Note): Completable
+    suspend fun delete(note: Note)
 
     @Update
-    fun update(note: Note): Completable
+    suspend fun update(note: Note)
 
     @Query("SELECT * FROM NOTE_TABLE ORDER BY id DESC")
-    fun getAllNotes(): LiveData<List<Note>>
+    suspend fun getAllNotes(): List<Note>
 }
