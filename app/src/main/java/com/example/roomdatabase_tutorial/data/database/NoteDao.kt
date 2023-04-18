@@ -1,13 +1,12 @@
 package com.example.roomdatabase_tutorial.data.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.roomdatabase_tutorial.data.Note
-import io.reactivex.rxjava3.core.Completable
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteDao {
@@ -22,5 +21,5 @@ interface NoteDao {
     suspend fun update(note: Note)
 
     @Query("SELECT * FROM NOTE_TABLE ORDER BY id DESC")
-    suspend fun getAllNotes(): List<Note>
+     fun getAllNotes(): Flow<List<Note>>
 }

@@ -8,6 +8,7 @@ import com.example.roomdatabase_tutorial.data.Note
 import com.example.roomdatabase_tutorial.data.repositories.NoteRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class NotesViewModel : ViewModel() {
@@ -35,8 +36,9 @@ class NotesViewModel : ViewModel() {
     }
     private fun loadData(){
         viewModelScope.launch {
-            val allNotes = repository.getAllNotes()
-            _notes.postValue(allNotes)
+            repository.getAllNotes().collect{
+                _notes.postValue(it)
+            }
 
         }
     }
