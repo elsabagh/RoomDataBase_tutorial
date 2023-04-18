@@ -1,5 +1,6 @@
 package com.example.roomdatabase_tutorial.data.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -7,8 +8,6 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.roomdatabase_tutorial.data.Note
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface NoteDao {
@@ -22,6 +21,6 @@ interface NoteDao {
     @Update
     fun update(note: Note): Completable
 
-    @Query("SELECT * FROM NOTE_TABLE")
-    fun getAllNotes(): Observable<List<Note>>
+    @Query("SELECT * FROM NOTE_TABLE ORDER BY id DESC")
+    fun getAllNotes(): LiveData<List<Note>>
 }

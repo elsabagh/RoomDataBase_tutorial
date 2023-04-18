@@ -1,5 +1,6 @@
 package com.example.roomdatabase_tutorial.data.repositories
 
+import androidx.lifecycle.LiveData
 import com.example.roomdatabase_tutorial.data.Note
 import com.example.roomdatabase_tutorial.data.database.NoteDatabase
 import io.reactivex.rxjava3.core.Completable
@@ -11,5 +12,5 @@ class NoteRepository {
         return dao.insertNote(note)
     }
 
-    fun getAllNotes() = dao.getAllNotes()
+    fun getAllNotes(): LiveData<List<Note>> = dao.getAllNotes()
 }

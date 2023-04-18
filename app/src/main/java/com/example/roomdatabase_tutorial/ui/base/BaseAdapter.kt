@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.RecyclerView
 import androidx.databinding.library.baseAdapters.BR
+import androidx.recyclerview.widget.RecyclerView
 
 interface BaseInteractionListener
 
@@ -27,9 +27,17 @@ abstract class BaseAdapter<T>(private var items:List<T>, private val listener: B
         }
     }
     fun setItems(newItems: List<T>){
+//        val deffResult = DiffUtil.calculateDiff(SimpleDiffUtil(items, newItems){
+//            oldItem, newItem ->
+//            areItemsSame(oldItem, newItem)
+//        })
         items = newItems
         notifyDataSetChanged()
     }
+
+//    open fun areItemsSame(oldItem: T, newItem: T): Boolean{
+//        return oldItem?.equals(newItem) == true
+//    }
 
     fun getItems() = items
 

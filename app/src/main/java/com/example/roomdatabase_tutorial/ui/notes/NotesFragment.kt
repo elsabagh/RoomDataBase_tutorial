@@ -10,12 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.roomdatabase_tutorial.data.Note
 import com.example.roomdatabase_tutorial.databinding.FragmentNotesBinding
 import com.example.roomdatabase_tutorial.ui.base.BaseAdapter
-import com.example.roomdatabase_tutorial.ui.base.BaseInteractionListener
 
-class NotesFragment : Fragment(), BaseInteractionListener {
+class NotesFragment : Fragment(), NoteInteractionListener {
 
 
-    private lateinit var List: ArrayList<Note>
     private lateinit var myAdapter: BaseAdapter<Note>
 
 
