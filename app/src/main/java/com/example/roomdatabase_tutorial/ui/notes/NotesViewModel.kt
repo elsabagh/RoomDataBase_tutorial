@@ -3,12 +3,10 @@ package com.example.roomdatabase_tutorial.ui.notes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.roomdatabase_tutorial.data.Note
 import com.example.roomdatabase_tutorial.data.repositories.NoteRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class NotesViewModel : ViewModel() {
@@ -17,13 +15,13 @@ class NotesViewModel : ViewModel() {
 
     val newNoteText = MutableLiveData<String>()
 
-    private val _notes = MutableLiveData<List<Note>>()
-    val notes: LiveData<List<Note>> = _notes
-//    val notes: LiveData<List<Note>> = repository.getAllNotes()
+//    private val _notes = MutableLiveData<List<Note>>()
+//    val notes: LiveData<List<Note>> = _notes
+    val notes: LiveData<List<Note>> = repository.getAllNotes().asLiveData()
 
-        init {
-        loadData()
-    }
+//        init {
+//        loadData()
+//    }
 
     fun addNote() {
         viewModelScope.launch {
@@ -34,12 +32,12 @@ class NotesViewModel : ViewModel() {
             }
         }
     }
-    private fun loadData(){
-        viewModelScope.launch {
-            repository.getAllNotes().collect{
-                _notes.postValue(it)
-            }
-
-        }
-    }
+//    private fun loadData(){
+//        viewModelScope.launch {
+//            repository.getAllNotes().collect{
+//                _notes.postValue(it)
+//            }
+//
+//        }
+//    }
 }
