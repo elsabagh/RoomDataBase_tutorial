@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.roomdatabase_tutorial.data.Note
 import com.example.roomdatabase_tutorial.data.repositories.NoteRepository
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class NotesViewModel : ViewModel() {
 
@@ -26,7 +27,7 @@ class NotesViewModel : ViewModel() {
     fun addNote() {
         viewModelScope.launch {
             newNoteText.value?.let {
-                repository.insertNewNote(Note(0, it, "16/4/2022", false))
+                repository.insertNewNote(Note(0, it, Date(), false))
                 newNoteText.postValue("")
 
             }
