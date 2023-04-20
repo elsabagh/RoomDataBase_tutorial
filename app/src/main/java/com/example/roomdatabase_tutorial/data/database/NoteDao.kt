@@ -1,5 +1,6 @@
 package com.example.roomdatabase_tutorial.data.database
 
+import android.widget.RemoteViews.RemoteCollectionItems
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -22,4 +23,7 @@ interface NoteDao {
 
     @Query("SELECT * FROM NOTE_TABLE ORDER BY id DESC")
      fun getAllNotes(): Flow<List<Note>>
+
+    @Query("SELECT * FROM NOTE_TABLE WHERE content LIKE :searchTerm ORDER BY id DESC")
+    suspend fun getFilteredNotes(searchTerm: String): List<Note>
 }

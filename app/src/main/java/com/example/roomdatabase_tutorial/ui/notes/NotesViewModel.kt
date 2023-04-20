@@ -7,6 +7,10 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.roomdatabase_tutorial.data.Note
 import com.example.roomdatabase_tutorial.data.repositories.NoteRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import java.util.Date
 
@@ -16,13 +20,17 @@ class NotesViewModel : ViewModel() {
 
     val newNoteText = MutableLiveData<String>()
 
-//    private val _notes = MutableLiveData<List<Note>>()
-//    val notes: LiveData<List<Note>> = _notes
-    val notes: LiveData<List<Note>> = repository.getAllNotes().asLiveData()
+    val searchText = MutableStateFlow("")
 
-//        init {
-//        loadData()
-//    }
+    private val _notes = MutableLiveData<List<Note>>()
+    val notes: LiveData<List<Note>> = _notes
+//    val notes: LiveData<List<Note>> = repository.getAllNotes().asLiveData()
+
+    init {
+        loadData()
+
+        searchData()
+    }
 
     fun addNote() {
         viewModelScope.launch {
@@ -33,12 +41,23 @@ class NotesViewModel : ViewModel() {
             }
         }
     }
-//    private fun loadData(){
-//        viewModelScope.launch {
-//            repository.getAllNotes().collect{
-//                _notes.postValue(it)
-//            }
-//
-//        }
-//    }
+
+    private fun loadData() {
+        viewModelScope.launch {
+            repository.getAllNotes().collect {
+                _notes.postValue(it)
+            }
+
+        }
+    }
+
+    private fun searchData() {
+        viewModelScope.launch {
+            searchText.debounce(500).collect {
+                val result = repository.getFilteredNotes(it)
+                _notes.postValue(result)
+            }
+        }
+    }
+
 }
