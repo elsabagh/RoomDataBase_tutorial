@@ -9,5 +9,6 @@ data class Note(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val content: String,
     val date: Date,
-    val isImportant: Boolean
+    val isImportant: Boolean,
+    val remindTimes: Int,
 )

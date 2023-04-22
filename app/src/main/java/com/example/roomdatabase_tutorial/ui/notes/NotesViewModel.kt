@@ -35,7 +35,7 @@ class NotesViewModel : ViewModel() {
     fun addNote() {
         viewModelScope.launch {
             newNoteText.value?.let {
-                repository.insertNewNote(Note(0, it, Date(), false))
+                repository.insertNewNote(Note(0, it, Date(), false, 5))
                 newNoteText.postValue("")
 
             }
