@@ -10,5 +10,5 @@ data class Note(
     val content: String,
     val date: Date,
     val isImportant: Boolean,
-    val remindTimes: Int,
+    val remindTimes: Int?
 )

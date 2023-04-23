@@ -1,6 +1,7 @@
 package com.example.roomdatabase_tutorial.data.database
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -9,7 +10,9 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.roomdatabase_tutorial.data.Note
 
-@Database(entities = [Note::class], version = 2)
+@Database(entities = [Note::class], version = 2
+    , autoMigrations = [AutoMigration(from = 1, to = 2)]
+)
 @TypeConverters(Converters::class)
 abstract class NoteDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDao
@@ -31,15 +34,7 @@ abstract class NoteDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): NoteDatabase {
-            return Room.databaseBuilder(context, NoteDatabase::class.java, DATABASE_NAME)
-                .addMigrations(MIGRATION_1_2).build()
-        }
-
-        private val MIGRATION_1_2 = object : Migration(1, 2) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE NOTE_TABLE ADD COLUMN remindTimes INTEGER NOT NULL DEFAULT 0")
-            }
-
+            return Room.databaseBuilder(context, NoteDatabase::class.java, DATABASE_NAME).build()
         }
     }
 }
